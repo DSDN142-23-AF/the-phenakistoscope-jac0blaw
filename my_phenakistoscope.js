@@ -28,88 +28,36 @@ function setup_layers(pScope){
 
   new PLayer(null, 0);  //lets us draw the whole circle background, ignoring the boundaries
 
-  // var layer1 = new PLayer(faces);
-  // layer1.mode( SWIRL(5) );
-  // layer1.set_boundary( 200, 1000 );
+  var collum1 = new PLayer(dancingcollum1);
+  collum1.mode( RING );
+  collum1.set_boundary( 0, 1000 );
 
-  // var layer2 = new PLayer(squares);
-  // layer2.mode( RING );
-  // layer2.set_boundary( 0, 400 );
+  var collum2 = new PLayer(dancingcollum2);
+  collum2.mode( RING );
+  collum2.set_boundary( 0, 1000 );
 
-  var layer1 = new PLayer(djset);
-  layer1.mode( RING );
-  layer1.set_boundary( 0, 400 );
-
-  var layer2 = new PLayer(dancingcollum1);
-  layer2.mode( RING );
-  layer2.set_boundary( 0, 1000 );
-
-  var layer3 = new PLayer(dancingcollum2);
-  layer3.mode( RING );
-  layer3.set_boundary( 0, 1000 );
-
-  var layer4 = new PLayer(dancingcollum3);
-  layer4.mode( RING );
-  layer4.set_boundary( 0, 1000 );
+  var collum3 = new PLayer(dancingcollum3);
+  collum3.mode( RING );
+  collum3.set_boundary( 0, 1000 );
 
   // var shadowspin = new PLayer(diskshad);
   // shadowspin.mode( SWIRL(2) );
   // shadowspin.set_boundary( 300, 1000 );
 
-  var layer5 = new PLayer(laser);
-  layer5.mode( SWIRL(2) );
-  layer5.set_boundary( 300, 1000 );
+  var purpledisk = new PLayer(diskspin);
+  purpledisk.mode( SWIRL(2) );
+  purpledisk.set_boundary( 300, 1000 );
 
-  var layer6 = new PLayer(laser2);
-  layer6.mode( RING );
-  layer6.set_boundary( 300, 1000 );
+  var mouth = new PLayer(shootingmouth);
+  mouth.mode( RING );
+  mouth.set_boundary( 300, 1000 );
 
-  var layer7 = new PLayer(djinmiddle);
-  layer7.mode( RING );
-  layer7.set_boundary( 0, 0 );
-
-  var layer8 = new PLayer(test);
-  layer8.mode( RING );
-  layer8.set_boundary( 800, 1000 );
-}
-
-
-function faces(x, y, animation, pScope){
-  
-  scale(animation.frame*2);
-
-  ellipse(0,0,50,50); // draw head
-  fill(30);
-  ellipse(-10,-10,10,10); //draw eye
-  ellipse(10,-10,10,10); // draw eye
-  arc(0,10,20,10,0,180); // draw mouth
+  var wolfdj = new PLayer(djinmiddle);
+  wolfdj.mode( RING );
+  wolfdj.set_boundary( 0, 0 );
 
 }
 
-function squares(x, y, animation, pScope){
-
-  // this is how you set up a background for a specific layer
-  let angleOffset = (360 / SLICE_COUNT) / 2
-  let backgroundArcStart = 270 - angleOffset;
-  let backgroundArcEnd = 270 + angleOffset;
-
-  fill(66, 135, 245)
-  arc(x,y,800,800,backgroundArcStart,backgroundArcEnd); // draws "pizza slice" in the background
-
-  fill(255)
-  rect(-10,-300-animation.wave()*50,20,20) // .wave is a cosine wave btw
-    
-  
-}
-
-function djset(){
-  //circle(0, 0, 900);
-  // fill(10,0,120);
-  // strokeWeight(25);
-  // ellipse(0,0, 3250, 3150);
-  
-
-}
 
 function dancingcollum1(x, y, animation,pScope){
   
@@ -144,54 +92,38 @@ function dancingcollum2(x, y, animation,pScope){
   
  }
 
-//  function diskshad(x,y,animation,pScope){
-// scale(0.4);
-//  pScope.draw_image("diskshadow",x+275,y+50)
-//  }
- function laser(x,y, animation, pScope){
+ function diskspin(x,y, animation, pScope){
   
-  stroke(22,59,123, 150)
-  strokeWeight(45);
- 
+  scale(0.43);
+  pScope.draw_image("disk",x+280,y);//purple disk going inwards
   
-  {scale(0.15);
-  pScope.draw_image("disk",x+600,y);
-  }
-  
-  
-  // noFill();
-  // arc(0, 0, 200, 200, 200, PI + QUARTER_PI);
-
   }
 
-  function laser2(x,y, animation, pScope){
+  function shootingmouth(x,y, animation, pScope){
     
-    scale(0.12);
+    scale(0.16);
     //pScope.draw_image_from_sequence("mouthshootshadow", x-450, y+3250, animation.frame);
-    pScope.draw_image_from_sequence("mouthshoot", x-590, y+8200, animation.frame);
+    pScope.draw_image_from_sequence("mouthshoot", x-590, y+6250, animation.frame);//mouth animation
     
     }
 
 
   function djinmiddle(x, y, animation, pScope){
-    let angleOffset = (360 / SLICE_COUNT) / 2
-    let backgroundArcStart = 270 - angleOffset;
-    let backgroundArcEnd = 270 + angleOffset;
     
     scale(0.5);
     
     fill(10,0,100);
     strokeWeight(0);
-    ellipse(0,0, 2350, 2250);
+    ellipse(0,0, 2350, 2300);//dark blue circle
     fill(22,33,225);
     strokeWeight(25);
-    ellipse(0,0,1000,1000);
+    ellipse(0,0,1000,1000);//navy blue circle
     noFill();
     strokeWeight(25);
     ellipse(0,0, 950, 950);
 
-    scale(animation.frame*0.55);
-    pScope.draw_image("keithdj",x,y)
+    scale(animation.frame*2.5);
+    pScope.draw_image("keithdj",x,y)//wolf in middle
 
     // scale(animation.frame*0.55);
     // pScope.draw_image("keithnoline",x,y)
@@ -200,22 +132,13 @@ function dancingcollum2(x, y, animation,pScope){
     // scale(animation.wave(0.02));
     // pScope.draw_image("actionline",x,y);
 
-  
-
     fill(0,0,0);
-    ellipse(0,0,80,80);
+    ellipse(0,0,34,34);//middle vinyl circle
 
  
  }
   
 
- function test (x,y,animation,pScope){
-
-
-  
  
-
-
- }
 
 
