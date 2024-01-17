@@ -5,18 +5,20 @@ const SLICE_COUNT = 12;
 function setup_pScope(pScope){
   pScope.output_mode(ANIMATED_DISK);
   pScope.scale_for_screen(true);
-  pScope.draw_layer_boundaries(true);
-  pScope.set_direction(CCW);
+  pScope.draw_layer_boundaries(false);
+  pScope.set_direction(CW);
   pScope.set_slice_count(SLICE_COUNT);
 
   pScope.load_image("keithdj","png")
   pScope.load_image("disk","png")
+  pScope.load_image("diskshadow","png")
   pScope.load_image("keithnoline","png")
   pScope.load_image("actionline","png")
   pScope.load_image_sequence("blue_dance","png", 4);
   pScope.load_image_sequence("purple_dance","png", 4);
   pScope.load_image_sequence("pink_dance","png", 4);
-  pScope.load_image_sequence("mouthshoot","png", 2);
+  pScope.load_image_sequence("mouthshoot","png", 3);
+  pScope.load_image_sequence("mouthshootshadow","png", 3);
   
   
 
@@ -49,6 +51,10 @@ function setup_layers(pScope){
   var layer4 = new PLayer(dancingcollum3);
   layer4.mode( RING );
   layer4.set_boundary( 0, 1000 );
+
+  // var shadowspin = new PLayer(diskshad);
+  // shadowspin.mode( SWIRL(2) );
+  // shadowspin.set_boundary( 300, 1000 );
 
   var layer5 = new PLayer(laser);
   layer5.mode( SWIRL(2) );
@@ -98,7 +104,9 @@ function squares(x, y, animation, pScope){
 
 function djset(){
   //circle(0, 0, 900);
-
+  // fill(10,0,120);
+  // strokeWeight(25);
+  // ellipse(0,0, 3250, 3150);
   
 
 }
@@ -117,6 +125,7 @@ function dancingcollum1(x, y, animation,pScope){
 function dancingcollum2(x, y, animation,pScope){
   translate(x-50,y-950)
   scale(0.2);
+  pScope.draw_image_from_sequence("pink_dance", -40, -200, animation.frame);
   pScope.draw_image_from_sequence("blue_dance", -50, -150, animation.frame);
   pScope.draw_image_from_sequence("purple_dance", 0, 0, animation.frame);
   pScope.draw_image_from_sequence("pink_dance", 50, 500, animation.frame);
@@ -135,24 +144,31 @@ function dancingcollum2(x, y, animation,pScope){
   
  }
 
+//  function diskshad(x,y,animation,pScope){
+// scale(0.4);
+//  pScope.draw_image("diskshadow",x+275,y+50)
+//  }
  function laser(x,y, animation, pScope){
   
   stroke(22,59,123, 150)
   strokeWeight(45);
  
-  {scale(0.15)
   
-  pScope.draw_image("disk",x+600,y);}
-
+  {scale(0.15);
+  pScope.draw_image("disk",x+600,y);
+  }
+  
+  
   // noFill();
   // arc(0, 0, 200, 200, 200, PI + QUARTER_PI);
 
   }
 
   function laser2(x,y, animation, pScope){
-    scale(0.3);
-  
-    pScope.draw_image_from_sequence("mouthshoot", x-250, y+3300, animation.frame);
+    
+    scale(0.12);
+    //pScope.draw_image_from_sequence("mouthshootshadow", x-450, y+3250, animation.frame);
+    pScope.draw_image_from_sequence("mouthshoot", x-590, y+8200, animation.frame);
     
     }
 
@@ -165,8 +181,8 @@ function dancingcollum2(x, y, animation,pScope){
     scale(0.5);
     
     fill(10,0,100);
-    strokeWeight(25);
-    ellipse(0,0, 2250, 2150);
+    strokeWeight(0);
+    ellipse(0,0, 2350, 2250);
     fill(22,33,225);
     strokeWeight(25);
     ellipse(0,0,1000,1000);
@@ -175,11 +191,16 @@ function dancingcollum2(x, y, animation,pScope){
     ellipse(0,0, 950, 950);
 
     scale(animation.frame*0.55);
-    pScope.draw_image("keithnoline",x,y)
+    pScope.draw_image("keithdj",x,y)
 
-    scale(animation.frame*2.2);
-    scale(animation.wave(0.02));
-    pScope.draw_image("actionline",x,y);
+    // scale(animation.frame*0.55);
+    // pScope.draw_image("keithnoline",x,y)
+
+    // scale(animation.frame*2.2);
+    // scale(animation.wave(0.02));
+    // pScope.draw_image("actionline",x,y);
+
+  
 
     fill(0,0,0);
     ellipse(0,0,80,80);
